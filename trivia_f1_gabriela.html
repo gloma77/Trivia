@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trivia F1 - Gabriela</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #111; color: #fff; text-align: center; padding: 20px; }
+    .question { margin: 30px auto; max-width: 600px; }
+    img { width: 100%; max-width: 400px; border-radius: 10px; margin-bottom: 20px; }
+    button { background: #e10600; color: white; border: none; padding: 10px 20px; margin: 5px; border-radius: 5px; cursor: pointer; }
+    button:hover { background: #ff3b30; }
+    .hidden { display: none; }
+    .result { font-size: 24px; margin-top: 30px; }
+    .credits { font-size: 14px; color: #ccc; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <h1>Trivia de Fórmula 1</h1>
+  <div id="quiz-container">
+    <!-- Preguntas aquí -->
+  </div>
+  <div class="result hidden" id="result"></div>
+  <div class="credits hidden" id="credits">Creado por Gabriela</div>
+  <audio id="sound">
+    <source src="https://www.soundjay.com/mechanical/f1-race-car-pit-stop-1.mp3" type="audio/mpeg">
+  </audio>
+
+<script>
+const questions = [
+  {
+    image: "https://upload.wikimedia.org/wikipedia/commons/7/7e/Max_Verstappen_2022.jpg",
+    question: "¿Quién ha ganado más campeonatos entre 2021 y 2024?",
+    options: ["Lewis Hamilton", "Max Verstappen", "Charles Leclerc", "Fernando Alonso"],
+    answer: "Max Verstappen"
+  },
+  {
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e1/Charles_Leclerc_2022.jpg",
+    question: "¿Para qué escudería corre Charles Leclerc?",
+    options: ["Mercedes", "Red Bull", "McLaren", "Ferrari"],
+    answer: "Ferrari"
+  },
+  {
+    image: "https://upload.wikimedia.org/wikipedia/commons/6/64/Checo_Pérez_2022.jpg",
+    question: "¿Cuál es el apodo del piloto mexicano Sergio Pérez?",
+    options: ["Speedy", "Checo", "Rayo", "Sergiño"],
+    answer: "Checo"
+  },
+  {
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/28/Lewis_Hamilton_2022.jpg",
+    question: "¿Cuántos títulos mundiales tiene Lewis Hamilton?",
+    options: ["6", "7", "8", "5"],
+    answer: "7"
+  },
+  {
+    image: "https://upload.wikimedia.org/wikipedia/commons/6/62/Lando_Norris_2022.jpg",
+    question: "¿De qué país es Lando Norris?",
+    options: ["Australia", "Canadá", "Reino Unido", "Países Bajos"],
+    answer: "Reino Unido"
+  },
+  {
+    image: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Fernando_Alonso_2023.jpg",
+    question: "¿Qué equipo representa Fernando Alonso en 2024?",
+    options: ["Ferrari", "Red Bull", "Aston Martin", "Renault"],
+    answer: "Aston Martin"
+  },
+  {
+    image: "https://upload.wikimedia.org/wikipedia/commons/b/b4/George_Russell_2022.jpg",
+    question: "¿Con qué equipo corre George Russell?",
+    options: ["Alpine", "Mercedes", "AlphaTauri", "Williams"],
+    answer: "Mercedes"
+  },
+  {
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Oscar_Piastri_2023.jpg",
+    question: "¿Quién es el joven piloto australiano que corre para McLaren?",
+    options: ["Daniel Ricciardo", "Oscar Piastri", "Mark Webber", "Alex Albon"],
+    answer: "Oscar Piastri"
+  },
+  {
+    image: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Carlos_Sainz_2022.jpg",
+    question: "¿Carlos Sainz es compañero de equipo de qué piloto?",
+    options: ["Fernando Alonso", "Lewis Hamilton", "Charles Leclerc", "Pierre Gasly"],
+    answer: "Charles Leclerc"
+  },
+  {
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Pierre_Gasly_2022.jpg",
+    question: "¿Para qué escudería corre Pierre Gasly en 2024?",
+    options: ["AlphaTauri", "Alpine", "Red Bull", "Haas"],
+    answer: "Alpine"
+  }
+];
+
+let current = 0;
+let score = 0;
+
+function renderQuestion() {
+  const q = questions[current];
+  const container = document.getElementById("quiz-container");
+  container.innerHTML = `
+    <div class="question">
+      <img src="${q.image}" alt="Imagen de la pregunta" />
+      <h2>${q.question}</h2>
+      ${q.options.map(opt => `<button onclick="answer('${opt}')">${opt}</button>`).join("")}
+    </div>
+  `;
+}
+
+function answer(selected) {
+  if (selected === questions[current].answer) score++;
+  current++;
+  if (current < questions.length) {
+    renderQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById("quiz-container").classList.add("hidden");
+  const result = document.getElementById("result");
+  const credits = document.getElementById("credits");
+  const sound = document.getElementById("sound");
+  sound.play();
+
+  let message = "";
+  if (score === 10) {
+    message = "🏆 ¡Eres un estratega de Red Bull! 10/10";
+  } else if (score >= 7) {
+    message = `⚙️ Muy bien, vas rumbo al paddock... (${score}/10)`;
+  } else if (score >= 4) {
+    message = `🔧 Con algo de práctica, llegas al podio... (${score}/10)`;
+  } else {
+    message = `🐢 Mejor quédate viendo Drive to Survive... (${score}/10)`;
+  }
+
+  result.innerHTML = message;
+  result.classList.remove("hidden");
+  credits.classList.remove("hidden");
+}
+
+renderQuestion();
+</script>
+
+</body>
+</html>
