@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Trivia F1 - Gabriela</title>
   <style>
     body { font-family: Arial, sans-serif; background: #111; color: #fff; text-align: center; padding: 20px; }
@@ -19,13 +18,12 @@
 <body>
 
   <h1>Trivia de Fórmula 1</h1>
-  <div id="quiz-container">
-    <!-- Preguntas aquí -->
-  </div>
+  <div id="quiz-container"></div>
   <div class="result hidden" id="result"></div>
   <div class="credits hidden" id="credits">Creado por Gabriela</div>
-  <audio id="sound">
-    <source src="https://www.soundjay.com/mechanical/f1-race-car-pit-stop-1.mp3" type="audio/mpeg">
+  <audio id="sound" preload="auto">
+    <source src="https://actions.google.com/sounds/v1/vehicles/car_engine_rev.ogg" type="audio/ogg" />
+    <source src="https://actions.google.com/sounds/v1/vehicles/car_engine_rev.mp3" type="audio/mpeg" />
   </audio>
 
 <script>
